@@ -2,22 +2,39 @@ import axios from 'axios';
 import { setAlert } from '../alert/alert-actions';
 import authTypes from './auth-types';
 import setAuthToken from '../../../utils/setAuthToken';
+import makeAuthTokenHeader from '../../../utils/makeAuthHeader';
 
-const { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } = authTypes;
+const { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL,TOKEN_LOADED } = authTypes;
 
+
+// load Token
+export const loadToken = () => async dispatch => {
+    if (localStorage.token) {
+      return dispatch({
+        type: TOKEN_LOADED,
+        payload: localStorage.getItem('token')
+      })
+    } else {
+      dispatch({
+        type: AUTH_ERROR
+      })
+    }
+}
 // Load User 
 export const loadUser = () => async dispatch => {
-    if(localStorage.token) {
-        setAuthToken(localStorage.token)
-    }
 
     try {
-        const res = axios.get('/api/auth')
+        const header = makeAuthTokenHeader(localStorage.getItem('token'))
+
+        const res = axios.get('/api/auth', header)
         
+        console.log(res)
+
         dispatch({
             type: USER_LOADED,
             payload: res.data
         })
+
     } catch (err) {
         dispatch({
             type: AUTH_ERROR
@@ -58,7 +75,9 @@ export const register = ({ name, email, password }) => async dispatch => {
             if (error) {
                 error.forEach(err => dispatch(setAlert(err.msg, 'danger')))
             }
-        
+            
+            localStorage.removeItem('token')
+
             dispatch({
                 type: REGISTER_FAIL
             })

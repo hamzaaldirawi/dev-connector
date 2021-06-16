@@ -8,20 +8,17 @@ import Alert from './components/layout/Alert';
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { loadUser } from './redux/reducers/auth/auth-actions';
-import setAuthToken from './utils/setAuthToken';
+import { loadUser, loadToken } from './redux/reducers/auth/auth-actions';
+
 
 import './App.css';
-
-if(localStorage.token) {
-  setAuthToken(localStorage.token)
-}
 
 const App = () => {
   
   useEffect(() => {
-    store.dispatch(loadUser())
-  })
+    store.dispatch(loadToken());
+    store.dispatch(loadUser());
+  }, [])
 
   return (
   <Provider store={store}>

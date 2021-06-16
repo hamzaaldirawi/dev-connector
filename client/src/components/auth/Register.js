@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { connect} from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../redux/reducers/alert/alert-actions';
 import { register } from '../../redux/reducers/auth/auth-actions';
 import PropTypes from 'prop-types';
@@ -29,6 +29,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         }
 
     }
+
+    if (isAuthenticated) {
+        return <Redirect to="/dashboard" />;
+    }
+    
     return (
     <Fragment>
         <h1 className="large text-primary">Sign Up</h1>
@@ -72,8 +77,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         Already have an account? <Link to="/login">Sign In</Link>
         </p>
     </Fragment>
-    )
-}
+    );
+};
 
 Register.propTypes = {
     setAlert: PropTypes.func.isRequired,

@@ -17,12 +17,12 @@ const Login = ({ login, isAuthenticated }) => {
 
     const onSubmit = async e => {
         e.preventDefault()
-       
+        // ERROR
         login({email, password})
     }
 
     // Redirect if logged in 
-    if(!isAuthenticated) {
+    if(isAuthenticated) {
         return <Redirect to='/dashboard' />
     }
 
