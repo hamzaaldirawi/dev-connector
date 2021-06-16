@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
@@ -9,7 +9,6 @@ import Alert from './components/layout/Alert';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { loadUser } from './redux/reducers/auth/auth-actions';
-//
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';

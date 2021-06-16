@@ -1,6 +1,6 @@
 import authTypes from './auth-types';
 
-const { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR } = authTypes
+const { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } = authTypes
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -21,22 +21,25 @@ const auth = (state = initialState, action) => {
                 user: payload
             }
         case REGISTER_SUCCESS:
+        case LOGIN_SUCCESS:
             localStorage.setItem('token', payload.token)
             return {
                 ...state,
                 ...payload,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
+                user: payload
             }
         case REGISTER_FAIL:
         case AUTH_ERROR:
+        case LOGIN_FAIL:
             localStorage.removeItem('token');
             return {
                 ...state,
                 token: null,
                 isAuthenticated: false,
                 loading: false,
-                user: payload
+                user: null
             }
         default: 
             return state
