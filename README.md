@@ -6,3 +6,4 @@ Skills used:
   - HTML
   - CSS
   - JavaScript
+  - MongoDB
