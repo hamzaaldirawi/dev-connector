@@ -12,7 +12,7 @@ app.use(express.json({extended: false}))
 
 // For Development only
 if(process.env.NODE_ENV === 'development') {
-    app.get('/', (req, res) => res.send('API Running'))
+    app.get('/', (req, res) => res.json())
 }
 
 

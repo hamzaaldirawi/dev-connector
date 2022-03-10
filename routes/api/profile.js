@@ -63,8 +63,7 @@ router.post('/', [auth,
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
-    if (githubusername)
-      profileFields.githubusername = githubusername;
+    if (githubusername) profileFields.githubusername = githubusername;
     if(skills) {
         // Because skills is an array
         profileFields.skills = skills.split(',').map(skill => skill.trim())
@@ -72,7 +71,6 @@ router.post('/', [auth,
 
     // Build socail object
     profileFields.social = {}
-
     if(youtube) profileFields.social.youtube = youtube
     if(twitter) profileFields.social.twitter = twitter
     if(facebook) profileFields.social.facebook = facebook
